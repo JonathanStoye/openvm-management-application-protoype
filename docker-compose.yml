@@ -1,0 +1,33 @@
+version: "3"
+services:
+  server-app:
+    image: first-node-test
+    deploy:
+      replicas: 3
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "3000:3000"
+    networks:
+      - intranet
+  db:
+    image: neo4j:3.4.5
+    deploy:
+      replicas: 1
+    #   resources:
+    #     limits:
+    #       cpus: "0.1"
+    #       memory: 50M
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    networks:
+      - intranet
+networks:
+  intranet:
