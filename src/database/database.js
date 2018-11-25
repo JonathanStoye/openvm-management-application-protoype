@@ -12,23 +12,23 @@ export const getReferenceTypes = async () =>
     meta: {},
     data: [
       {
-        id: '1',
+        id: 'ESSENTIAL',
         label: 'is essential subskill/part of',
       },
       {
-        id: '2',
+        id: 'OPTIONAL',
         label: 'is optional subskill/part of',
       },
       {
-        id: '3',
+        id: 'PREREQUISITE',
         label: 'needs as prerequisite',
       },
       {
-        id: '4',
+        id: 'SIMILAR',
         label: 'is similar to',
       },
       {
-        id: '5',
+        id: 'SAME',
         label: 'is same as',
       },
     ],
