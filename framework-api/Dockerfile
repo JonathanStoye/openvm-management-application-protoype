@@ -1,6 +1,6 @@
 FROM node:10.13
-COPY src/ /app
+# COPY src/ /app
 WORKDIR /app
 RUN npm i
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "dev" ]
 EXPOSE 3000

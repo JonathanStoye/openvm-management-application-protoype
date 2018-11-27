@@ -1,5 +1,5 @@
-import { competencies } from './competencies'
 import { references } from './references'
+import neo4j from 'neo4j-driver'
 
 export const getSkillTypes = async () =>
   Promise.resolve({
@@ -52,9 +52,26 @@ export const getReferences = async () =>
   })
 
 export const getEntries = async requestedId => {
-  const data = requestedId
-    ? competencies.filter(({ id }) => id === requestedId)
-    : competencies
+  const driver = neo4j.driver(
+    'bolt://db:7687',
+    neo4j.auth.basic('neo4j', 'qwerqwer')
+  )
+  const whereClause = requestedId ? `WHERE n.id = "${requestedId}"` : ''
+  const session = driver.session()
+  const result = await session.writeTransaction(tx =>
+    tx.run(`MATCH (n) ${whereClause} RETURN n`)
+  )
+  const data = result.records.map(record => {
+    const rawEntry = record.get('n').properties
+    return {
+      ...rawEntry,
+      prefLabel: rawEntry.prefLabel.map(x => JSON.parse(x)),
+      altLabel: rawEntry.altLabel.map(x => JSON.parse(x)),
+      description: rawEntry.description.map(x => JSON.parse(x)),
+    }
+  })
+  session.close()
+  driver.close()
   return Promise.resolve({
     meta: {},
     data,

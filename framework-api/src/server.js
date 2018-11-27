@@ -43,7 +43,7 @@ router.get('/context', async (ctx, next) => {
 app.use(async (ctx, next) => {
   ctx.driver = neo4j.driver(
     'bolt://192.168.178.47:7687',
-    neo4j.auth.basic('neo4j', 'cAbrun-qyrvob-6cabqy')
+    neo4j.auth.basic('neo4j', 'qwerqwer')
   )
   ctx.session = ctx.driver.session()
   await next()
@@ -60,22 +60,22 @@ router.get('/deleteAll', async (ctx, next) => {
 })
 
 router.get('/populate', async (ctx, next) => {
-  // const props = competencies.map(competency => ({
-  //   ...competency,
-  //   prefLabel: competency.prefLabel.map(x => JSON.stringify(x)),
-  //   altLabel: competency.altLabel.map(x => JSON.stringify(x)),
-  //   description: competency.description.map(x => JSON.stringify(x)),
-  // }))
-  // await ctx.session.writeTransaction(tx =>
-  //   tx.run(
-  //     `
-  //     UNWIND $props AS entry
-  //     CREATE (node:entry)
-  //     SET node = entry
-  //     `,
-  //     { props }
-  //   )
-  // )
+  const props = competencies.map(competency => ({
+    ...competency,
+    prefLabel: competency.prefLabel.map(x => JSON.stringify(x)),
+    altLabel: competency.altLabel.map(x => JSON.stringify(x)),
+    description: competency.description.map(x => JSON.stringify(x)),
+  }))
+  await ctx.session.writeTransaction(tx =>
+    tx.run(
+      `
+      UNWIND $props AS entry
+      CREATE (node:entry)
+      SET node = entry
+      `,
+      { props }
+    )
+  )
   await references.forEach(async ({ sourceId, referenceType, targetId }) => {
     const session = ctx.driver.session()
     await session.writeTransaction(tx =>
@@ -89,7 +89,13 @@ router.get('/populate', async (ctx, next) => {
     )
     session.close()
   })
-  ctx.body = JSON.stringify('Database successfully populated')
+  const result = await ctx.session.writeTransaction(tx =>
+    tx.run(
+      `MATCH (n)
+      RETURN n`
+    )
+  )
+  ctx.body = JSON.stringify(result)
   await next()
 })
 
@@ -101,9 +107,7 @@ router.get('/', async (ctx, next) => {
       RETURN n`
     )
   )
-  // console.log(result.records)
-  const results = result.records.map(record => record.get('n'))
-  ctx.body = JSON.stringify(results)
+  ctx.body = JSON.stringify(result)
   await next()
 })
 

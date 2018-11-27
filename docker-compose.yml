@@ -13,11 +13,15 @@ services:
         condition: on-failure
     ports:
       - "3000:3000"
+    volumes:
+      - ./framework-api/src/:/app
     networks:
       - intranet
   db:
     build: ./framework-database
-    image: neo4j-database
+    image: framework-database
+    environment:
+      - NEO4J_AUTH=neo4j/qwerqwer
     deploy:
       replicas: 1
       #   resources:
