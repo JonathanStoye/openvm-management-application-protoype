@@ -1,13 +1,14 @@
 version: "3"
 services:
   server-app:
-    image: first-node-test
+    build: ./framework-api
+    image: framework-api
     deploy:
-      replicas: 3
-      resources:
-        limits:
-          cpus: "0.1"
-          memory: 50M
+      replicas: 1
+      # resources:
+      #   limits:
+      #     cpus: "0.1"
+      #     memory: 50M
       restart_policy:
         condition: on-failure
     ports:
@@ -15,7 +16,8 @@ services:
     networks:
       - intranet
   db:
-    image: neo4j:3.4.10
+    build: ./framework-database
+    image: neo4j-database
     deploy:
       replicas: 1
       #   resources:
@@ -29,4 +31,5 @@ services:
       - "7687:7687"
     networks:
       - intranet
-networks: intranet:
+networks:
+  intranet:
