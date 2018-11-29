@@ -2,16 +2,19 @@ import Koa from 'koa'
 import Router from 'koa-router'
 import { context } from './database/context'
 import { entries } from './routes/entries'
-// import { references } from './routes/references'
+import cors from '@koa/cors'
+import neo4j from 'neo4j-driver'
+import * as db from './database/database'
 import { referenceTypes } from './routes/referenceTypes'
 import { escoExample } from './routes/escoExample'
-import neo4j from 'neo4j-driver'
 import { competencies } from './database/competencies'
-import * as db from './database/database'
 import { references } from './routes/references'
 
 const app = new Koa()
 const router = new Router()
+
+// CORS
+app.use(cors())
 
 // logger
 app.use(async (ctx, next) => {
@@ -134,4 +137,4 @@ app
   .use(escoExample.routes())
   .use(escoExample.allowedMethods())
 
-app.listen(6000)
+app.listen(6060)
