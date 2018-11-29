@@ -29,7 +29,7 @@ entries
     const entries = ctx.data.map(date => {
       return {
         ...date,
-        '@context': 'http://localhost:3000/context/',
+        '@context': 'http://localhost:6000/context/',
       }
     })
     ctx.entries = entries
@@ -40,7 +40,7 @@ entries
       ctx.body = await jsonld.expand(ctx.entries)
     } else {
       ctx.body = await jsonld.compact(ctx.entries, {
-        '@context': 'http://localhost:3000/context/',
+        '@context': 'http://localhost:6000/context/',
       })
     }
     await next()

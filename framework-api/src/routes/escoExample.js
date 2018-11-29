@@ -4,7 +4,7 @@ import * as jsonld from 'jsonld'
 const escoExample = new Router({ prefix: '/example' })
 
 const doc = {
-  '@context': 'http://localhost:3000/context/',
+  '@context': 'http://localhost:6000/context/',
   id: 'http://data.europa.eu/esco/skill/d0c425c6-e3de-465e-923d-d4d30ec4be9b',
   type: [
     'http://data.europa.eu/esco/model#Skill',
@@ -141,7 +141,7 @@ escoExample.get('/', async (ctx, next) => {
     ctx.body = await jsonld.expand(doc)
   } else {
     ctx.body = await jsonld.compact(doc, {
-      '@context': 'http://localhost:3000/context/',
+      '@context': 'http://localhost:6000/context/',
     })
   }
   await next()
