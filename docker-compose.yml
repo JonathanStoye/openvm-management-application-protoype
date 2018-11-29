@@ -21,7 +21,7 @@ services:
       restart_policy:
         condition: on-failure
     ports:
-      - "6000:6000"
+      - "6060:6060"
     volumes:
       - ./framework-api/src/:/app
     networks:

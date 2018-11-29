@@ -57,11 +57,11 @@ export const getReferences = async () => {
     )
   )
   const data = records.map(entry => ({
-    sourceID: `http://localhost:6000/entries/${entry.get('sourceNode.id')}`,
-    referenceType: `http://localhost:6000/referenceTypes/${
+    sourceID: `http://localhost:6060/entries/${entry.get('sourceNode.id')}`,
+    referenceType: `http://localhost:6060/referenceTypes/${
       entry.get('reference').type
     }`,
-    targetID: `http://localhost:6000/entries/${entry.get('targetNode.id')}`,
+    targetID: `http://localhost:6060/entries/${entry.get('targetNode.id')}`,
   }))
   session.close()
   driver.close()
@@ -98,12 +98,12 @@ export const getEntries = async requestedId => {
       )
       rawReferences.forEach(({ type }, index) => {
         references[type].push(
-          `http://localhost:6000/entries/${targetNodes[index].properties.id}`
+          `http://localhost:6060/entries/${targetNodes[index].properties.id}`
         )
       })
       return {
         ...rawEntry,
-        id: `http://localhost:6000/entries/${rawEntry.id}`,
+        id: `http://localhost:6060/entries/${rawEntry.id}`,
         prefLabel: rawEntry.prefLabel.map(x => JSON.parse(x)),
         altLabel: rawEntry.altLabel.map(x => JSON.parse(x)),
         description: rawEntry.description.map(x => JSON.parse(x)),
