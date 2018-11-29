@@ -21,9 +21,6 @@ referenceTypes
     await next()
   })
   .use(async (ctx, next) => {
-    console.log(ctx.entries)
-    // ctx.body = JSON.stringify(ctx.data)
-    // await next()
     if (ctx.query.format === 'expanded') {
       ctx.body = await jsonld.expand(ctx.entries)
     } else {

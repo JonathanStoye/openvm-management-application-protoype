@@ -21,5 +21,10 @@ export const context = {
       '@id': 'http://localhost:3000/context/referenceType',
       '@type': 'http://schema.org/Text',
     },
+    isEssentialPartOf: 'http://localhost:3000/context/isEssentialPartOf',
+    isOptionalPartOf: 'http://localhost:3000/context/isOptionalPartOf',
+    needsAsPrerequisite: 'http://localhost:3000/context/needsAsPrerequisite',
+    isSimilarTo: 'http://localhost:3000/context/isSimilarTo',
+    isSameAs: 'http://localhost:3000/context/isSameAs',
   },
 }

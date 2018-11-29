@@ -26,14 +26,10 @@ entries
     await next()
   })
   .use(async (ctx, next) => {
-    // const references = await database.getReferences()
-    // console.log(references)
-    // TODO: map the references to the entries
     const entries = ctx.data.map(date => {
       return {
         ...date,
         '@context': 'http://localhost:3000/context/',
-        id: `http://localhost:3000/entries/${date.id}`,
       }
     })
     ctx.entries = entries

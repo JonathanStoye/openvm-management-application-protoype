@@ -7,7 +7,8 @@ import { referenceTypes } from './routes/referenceTypes'
 import { escoExample } from './routes/escoExample'
 import neo4j from 'neo4j-driver'
 import { competencies } from './database/competencies'
-import { references } from './database/references'
+import * as db from './database/database'
+import { references } from './routes/references'
 
 const app = new Koa()
 const router = new Router()
@@ -76,14 +77,19 @@ router.get('/populate', async (ctx, next) => {
       { props }
     )
   )
+  const { data: referenceTypes } = await db.getReferenceTypes()
   await references.forEach(async ({ sourceId, referenceType, targetId }) => {
     const session = ctx.driver.session()
+    const referenceTypeLabel = referenceTypes.reduce(
+      (prev, { id, label }) => (id === referenceType ? label : prev),
+      undefined
+    )
     await session.writeTransaction(tx =>
       tx.run(
         `
         MATCH (a:entry),(b:entry)
         WHERE a.id = "${sourceId}" AND b.id = "${targetId}"
-        CREATE (a)-[r:${referenceType}]->(b)
+        CREATE (a)-[r:${referenceType} {label: "${referenceTypeLabel}"}]->(b)
         `
       )
     )
@@ -118,8 +124,8 @@ app
   .use(entries.routes())
   .use(entries.allowedMethods())
   // References
-  // .use(references.routes())
-  // .use(references.allowedMethods())
+  .use(references.routes())
+  .use(references.allowedMethods())
   // ReferenceTypes
   .use(referenceTypes.routes())
   .use(referenceTypes.allowedMethods())
