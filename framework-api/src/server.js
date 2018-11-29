@@ -78,6 +78,7 @@ router.get('/populate', async (ctx, next) => {
     )
   )
   const { data: referenceTypes } = await db.getReferenceTypes()
+  const { data: references } = await db.getReferences()
   await references.forEach(async ({ sourceId, referenceType, targetId }) => {
     const session = ctx.driver.session()
     const referenceTypeLabel = referenceTypes.reduce(
