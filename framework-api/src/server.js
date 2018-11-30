@@ -9,6 +9,7 @@ import { referenceTypes } from './routes/referenceTypes'
 import { escoExample } from './routes/escoExample'
 import { competencies } from './database/competencies'
 import { references } from './routes/references'
+import { references as referenceData } from './database/references'
 
 const app = new Koa()
 const router = new Router()
@@ -81,8 +82,7 @@ router.get('/populate', async (ctx, next) => {
     )
   )
   const { data: referenceTypes } = await db.getReferenceTypes()
-  const { data: references } = await db.getReferences()
-  await references.forEach(async ({ sourceId, referenceType, targetId }) => {
+  await referenceData.forEach(async ({ sourceId, referenceType, targetId }) => {
     const session = ctx.driver.session()
     const referenceTypeLabel = referenceTypes.reduce(
       (prev, { id, label }) => (id === referenceType ? label : prev),
