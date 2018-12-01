@@ -15,6 +15,11 @@ class Api {
     this.fetch("/entries", {
       method: "GET"
     });
+
+  getReferenceTypes = () =>
+    this.fetch("/referenceTypes", {
+      method: "GET"
+    });
 }
 
 export default new Api("http://localhost:6060");
