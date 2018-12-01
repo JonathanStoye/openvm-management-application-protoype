@@ -26,5 +26,6 @@ export const context = {
     needsAsPrerequisite: 'http://localhost:6060/context/needsAsPrerequisite',
     isSimilarTo: 'http://localhost:6060/context/isSimilarTo',
     isSameAs: 'http://localhost:6060/context/isSameAs',
+    key: 'http://schema.org/Text',
   },
 }

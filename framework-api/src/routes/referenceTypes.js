@@ -15,6 +15,7 @@ referenceTypes
       Object.assign({}, date, {
         '@context': 'http://localhost:6060/context',
         id: `http://localhost:6060/referenceTypes/${date.id}`,
+        key: date.id,
       })
     )
     ctx.entries = entries
