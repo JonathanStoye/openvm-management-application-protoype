@@ -208,11 +208,16 @@ class App extends Component {
           ));
           return (
             <div style={{ padding: "42px 36px" }}>
+              <Typography component="h2" variant="h2" gutterBottom>
+                OpenVM Directory
+              </Typography>
               <label {...downShift.getLabelProps()}>
                 Search entries:&nbsp;&nbsp;
               </label>
               <Input
-                {...downShift.getInputProps({ placeholder: "Search entries" })}
+                {...downShift.getInputProps({
+                  placeholder: "by label and description"
+                })}
               />
               <br />
               <br />
@@ -383,7 +388,8 @@ const EntryModal = ({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        height: "100vh"
+        height: "100vh",
+        margin: 20
       }}
       onClick={closeMenu}
     >
