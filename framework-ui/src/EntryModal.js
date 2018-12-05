@@ -16,7 +16,8 @@ export const EntryModal = ({
         alignItems: "center",
         justifyContent: "center",
         height: "100vh",
-        margin: 20
+        margin: 20,
+        outline: "none"
       }}
       onClick={closeMenu}
     >
