@@ -4,9 +4,11 @@
 
 To get this project up and running please install the docker engine according to your OS.
 
+To install the dependecies of the project, run `npm run install:all` in the root folder of the project.
+
 ## Starting the Application
 
-All you need to do afterwards is running `docker-compose up` inside of this folder. The UI can then be found at [http://localhost:3000](http://localhost:3000) and the API at [http://localhost:6060](http://localhost:6060).
+All you need to do afterwards is running `docker-compose up` in the root folder of the project. The UI can then be found at [http://localhost:3000](http://localhost:3000) and the API at [http://localhost:6060](http://localhost:6060).
 
 ## Development
 
