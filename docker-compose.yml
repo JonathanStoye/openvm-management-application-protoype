@@ -16,10 +16,6 @@ services:
   server-app:
     build: ./framework-api
     image: framework-api
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
     ports:
       - "6060:6060"
     volumes:
@@ -31,18 +27,19 @@ services:
     image: framework-database
     environment:
       - NEO4J_AUTH=neo4j/qwerqwer
-    deploy:
-      replicas: 1
-      #   resources:
-      #     limits:
-      #       cpus: "0.1"
-      #       memory: 50M
-      restart_policy:
-        condition: on-failure
     ports:
       - "7474:7474"
       - "7687:7687"
     networks:
       - intranet
+  # Enable this only for demonstration purposes
+  # It will runa production ready version of the UI
+  # client-app-production:
+  #   build: .
+  #   image: framework-ui-production
+  #   ports:
+  #     - "5000:5000"
+  #   networks:
+  #     - intranet
 networks:
   intranet:

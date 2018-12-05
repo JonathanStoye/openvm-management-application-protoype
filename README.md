@@ -21,3 +21,7 @@ The database can be populated with the OpenVM framework data, which is located i
 ## API Documentation
 
 The API documentation can be found in [./api.postman_collection.json](./api.postman_collection.json)
+
+## Apendix
+
+The `framework-ui-production` container is purely for demo purposes.
