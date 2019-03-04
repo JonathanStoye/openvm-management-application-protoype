@@ -27,3 +27,6 @@ The API documentation can be found in [./api.postman_collection.json](./api.post
 ## Apendix
 
 The `framework-ui-production` container is purely for demo purposes.
+
+## License
+This is licensed under [MIT](https://github.com/JonathanStoye/openvm-management-application-protoype/blob/master/LICENSE)
